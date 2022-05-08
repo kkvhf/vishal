@@ -1,0 +1,30 @@
+clc;
+clear all;
+close all;
+d=[1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 1 1 1 1 1]
+l=length(d)
+c=0;
+x=1;
+for(i=1:1:l)
+ if(d(i)==1)
+ c=c+1;
+ if(c==5)
+ i;
+ c=0;
+ m(x)=d(i);
+ x=x+1;
+ m(x)=0;
+ x=x+1;
+ else
+ i;
+ m(x)=d(i);
+ x=x+1;
+ end
+ else
+ c=0;
+ m(x)=d(i);
+ x=x+1;
+ end
+end
+d
+m
