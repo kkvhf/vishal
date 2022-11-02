@@ -1,0 +1,13 @@
+clc;
+a1=5000; % Total Area to be Covered
+a2=15; % Area of Each Cell
+S=1000; % Total No. of Channels in the System
+N=[3 4 7 9 12 13 19 21 28 37]; % Different Cluster Sizes
+A=N.*a2; % Area of Each Cluster
+M=a1./A; % No. of Clusters in The System
+K=S./N; % No. of Channels in a Cell
+C=S.*M; % System Capacity
+plot(N,C);
+xlabel('Cluster Size (No. of cells in a Cluster)');
+ylabel('System Capacity');
+title('Relation Between Cluster Size and System Capacity');
