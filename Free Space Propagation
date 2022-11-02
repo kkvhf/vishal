@@ -1,0 +1,19 @@
+pt=50; %Transmitted Power
+fc=900*10^6; %Carrier Frequency
+l=1; %Loss Factor
+gt=1; %Gain of Tx. Antenna
+gr=1; %Gain of Rx. Antenna
+d=100; %Distance
+c=3*10^8; %Velocity of Light
+ptdbm=10*log10(pt/10^-3);
+ptdbw=10*log10(pt);
+pr=((pt*gt*gr)*(c/fc)^2)/((4*pi)*d)^2*l;
+prdbm=10*log10(pr/10^-3);
+prr=prdbm+(20*log10(100/10000));
+distance=0:100:10000;
+prx=((pt*gt*gr)*(c/fc).^2)./((4*pi).*distance).^2*l;
+prdbmy=10*log10(prx/10.^-3);
+plot(distance,prdbmy);
+title('Free Space Propagation');
+xlabel('T-R Seperation');
+ylabel('Received Power (in dB)');
