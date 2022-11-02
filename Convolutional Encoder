@@ -1,0 +1,37 @@
+d=[1 1 0 1 0 0 0 0]; % Input sequence
+m0=[0 d(1,1) d(1,2) d(1,3) d(1,4) d(1,5) d(1,6) d(1,7)]; % Flip-Flop 1
+ contents
+m1=[0 0 d(1,1) d(1,2) d(1,3) d(1,4) d(1,5) d(1,6)]; % Flip-Flop 2
+ contents
+m2=[0 0 0 d(1,1) d(1,2) d(1,3) d(1,4) d(1,5)]; % Flip-Flop 3 contents
+m3=[0 0 0 0 d(1,1) d(1,2) d(1,3) d(1,4)]; % Flip-Flop 4 contents
+x1=xor(xor(m3,m1),d)
+x2=xor(xor(xor(d,m0),m2),m3)
+x3=xor(xor(xor(xor(d,m0),m1),m2),m3)
+x=[x1; x2; x3]
+l=length(x1);
+op=[];
+for i=1:1:l
+op=[op x1(i) x2(i) x3(i)];
+end
+op
+x1 =
+ 1×8 logical array
+ 1 1 1 0 1 0 0 1
+x2 =
+ 1×8 logical array
+ 1 0 1 0 1 1 1 1
+x3 =
+ 1×8 logical array
+ 1 0 0 1 1 0 1 1
+x =
+ 3×8 logical array
+ 1 1 1 0 1 0 0 1
+ 1 0 1 0 1 1 1 1
+ 1 0 0 1 1 0 1 1
+op =
+ Columns 1 through 13
+ 1 1 1 1 0 0 1 1 0 0 0
+ 1 1
+ Columns 14 through 24
+ 1 1 0 1 0 0 1 1 1 1 1
