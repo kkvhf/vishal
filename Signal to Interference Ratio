@@ -1,0 +1,22 @@
+clc;
+clear all;
+close all;
+SIDB=0;
+n=4;
+I0=6;
+while SIDB<=15;
+N=7;
+q1=(3*N);
+Q=sqrt(q1);
+SI=(Q^n)/I0;
+SIDB=10*log10(SI);
+disp(SIDB);
+disp('VAlUE N IS ');
+disp(N)
+if SIDB<=15
+disp('VAlUE N IS NOT ACCEPTABLE')
+else
+disp('VALUE OF N IS ACCEPTABLE');
+end
+end
+disp('ACCEPTABLE')
