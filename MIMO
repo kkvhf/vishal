@@ -1,0 +1,51 @@
+Mt = 4; % number of transmit antennas
+Mr = 4; % number of receive antennas
+% number of channel realization
+It = 10000;
+% SNR range in dB
+SNRdBvalues = -15:30;
+% initialize variables: ergodic capacity for each value of SNRdBvalues
+Cmimo = zeros(1, length(SNRdBvalues));
+Csimo = zeros(1, length(SNRdBvalues));
+Cmiso = zeros(1, length(SNRdBvalues));
+Csiso = zeros(1, length(SNRdBvalues));
+for kk=1:It
+SNRidx = 0; % SNR index
+% generate channel realization
+Hmimo = (randn(Mr,Mt) + j*randn(Mr,Mt))/sqrt(2); % mimo
+hsimo = (randn(Mr,1) + j*randn(Mr,1))/sqrt(2); % simo
+hmiso = (randn(1,Mr) + j*randn(1,Mr))/sqrt(2); % miso
+hsiso = (randn + j*randn)/sqrt(2); % siso
+for SNRdB = SNRdBvalues
+ SNR = 10.^(SNRdB./10); % linear scale
+ SNRidx = SNRidx + 1;
+ % MIMO
+ Cmimo(SNRidx) = Cmimo(SNRidx) + log2(real(det( eye(Mr) + SNR/
+Mt*(Hmimo*Hmimo') )));
+ % SIMO
+ Csimo(SNRidx) = Csimo(SNRidx) + log2( 1 + SNR*norm(hsimo)^2 );
+ % MISO
+ Cmiso(SNRidx) = Cmiso(SNRidx) + log2( 1 + SNR/Mt*norm(hmiso)^2 );
+ % SISO
+ Csiso(SNRidx) = Csiso(SNRidx) + log2( 1 + SNR*abs(hsiso)^2 );
+end
+end
+% Compute average over all channel realizations
+Csiso = Csiso/It;
+Csimo = Csimo/It;
+Cmiso = Cmiso/It;
+Cmimo = Cmimo/It;
+% plot
+figure(1)
+plot(SNRdBvalues, Cmimo,'r')
+hold on
+plot(SNRdBvalues, Csimo,'b')
+plot(SNRdBvalues, Cmiso,'k')
+plot(SNRdBvalues, Csiso,'m')
+xlabel('Average SNR \rho (dB)')
+ylabel('Ergodic Capacity (bits/transmission)')
+title('Ergodic Capacity for i.i.d. Rayleigh fast fading channel')
+legend('4x4 MIMO', '1x4 SIMO', '4x1 MISO', '1x1
+ SIMO',"Location","northwest")
+grid
+hold off
